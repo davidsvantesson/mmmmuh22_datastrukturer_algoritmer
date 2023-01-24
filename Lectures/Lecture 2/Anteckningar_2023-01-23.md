@@ -90,8 +90,16 @@ I er tasks.json fil måste ni lägga in följande under "tasks"->"args":
                 "-lgtest",
                 "-lgtest_main"
 ```
-<!--
 ### CMake
+Jag har satt upp en alterantiv filstruktur, som använder CMake för att bygga projektet. Den ligger i undermappen _Cpp_CMake_. Detta är mer hur man skulle sätta upp det i ett riktigt projekt:
+
+ - main.cpp: Huvudfilen
+ - storage.cpp: Vår modul
+ - include/storage.h: Headerfil för vår modul
+ - tests/test_storage.cpp: Testfil för vår modul
+ - CMakeLists.txt: Filen som beskriver bygget, inklusive test executable.
+
+#### Installation
 
 Öppna MSYS MINGW64. Installera följande:
 
@@ -100,5 +108,36 @@ pacman -S mingw-w64-x86_64-cmake
 pacman -S ninja
 ```
 
-Installera CMake extension i Visual studio code.
--->
+Det finns Cmake extension för VS Code. Jag har fått problem att köra direkt från VS code så jag rekommenderar inte att installera det.
+
+Vissa anpassningar av CMake filen kan behövas om du inte använder Windows eller MinGW64.
+
+#### Bygge
+
+Öppna MSYS MINGW64. Gå till mappen där du har ditt program (där main.cpp ligger).
+
+Vi behöver köra CMake en gång för att skapa byggfilerna.
+
+```
+# Assuming you're executing these commands
+# from the root directory!
+mkdir build && cd build
+cmake ..
+```
+
+Har inget i strukturen ändrats kan vi sedan köra följande kommando varje gång vi vill bygga:
+
+```
+cmake --build .
+```
+
+Våra executables har nu skapats. Vill du sedan köra själva programmet (main-funktionen) kör du:
+```
+./storage.exe
+```
+
+För att köra testerna kör du:
+```
+./test-storage.exe
+```
+
