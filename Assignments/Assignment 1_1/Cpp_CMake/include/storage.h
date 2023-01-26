@@ -41,5 +41,5 @@ public:
     bool pop(int &data);
     bool peek(int &data);
     bool isEmpty();
-    bool swap(int i, int j);
+    //bool swap(int i, int j);
 };
