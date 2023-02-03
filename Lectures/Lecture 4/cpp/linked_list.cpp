@@ -5,18 +5,18 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    char data;
     Node *next;
 
     // Default constructor
     Node()
     {
-        data = 0;
+        data = ' ';
         next = NULL;
     }
 
     // Constructor with data
-    Node(int data)
+    Node(char data)
     {
         this->data = data;
         this->next = NULL;
@@ -54,14 +54,14 @@ public:
     int count() { 
         return size();
     }
-    bool contains(int data);                //finns 
-    int sum();
-    void append(int data);
-    void prepend(int data);
-    void insert(int data, int after_data);  //Lägger till nod med data, efter en nod innehållande "after_data"
-    int remove_first_node();
-    int remove_last_node();
-    void remove_node(int data);             //Tar bort nod som innehåller "data"
+    bool contains(char data);                //finns 
+
+    void append(char data);
+    void prepend(char data);
+    void insert(char data, char after_data);  //Lägger till nod med data, efter en nod innehållande "after_data"
+    char remove_first_node();
+    char remove_last_node();
+    void remove_node(char data);             //Tar bort nod som innehåller "data"
     bool is_empty() { return lsize==0; }
 };
 
@@ -100,25 +100,11 @@ void LinkedList::printList()
     cout << "None" << endl;
 }
 
-/**
- * Return the sum of all data in the list
-*/
-int LinkedList::sum() {
-    Node * node = this->head;
-    int sum = 0;
-
-    while (node != NULL) {
-        sum += node->data;
-        node = node->next;
-    }
-
-    return sum;
-}
 
 /** 
  * Add the data to a node at the end of the list
 */
-void LinkedList::append(int data) {
+void LinkedList::append(char data) {
     Node * new_node = new Node(data);
 
     if (this->head == NULL) {
@@ -137,7 +123,7 @@ void LinkedList::append(int data) {
 /**
  * Add the data to a node at the start of the list
 */
-void LinkedList::prepend(int data) {
+void LinkedList::prepend(char data) {
     // 1. Skapa ny nod
     Node * new_node = new Node(data);
 
@@ -158,7 +144,7 @@ void LinkedList::prepend(int data) {
 /**
  * Insert data in a new node, placed after the (first) node containing 'after_data'
 */
-void LinkedList::insert(int data, int after_data) {
+void LinkedList::insert(char data, char after_data) {
     // 1. Skapa ny nod
     Node * new_node = new Node(data);
 
@@ -190,13 +176,13 @@ void LinkedList::insert(int data, int after_data) {
 /**
  * Remove the first node from the list
 */
-int LinkedList::remove_first_node() {
+char LinkedList::remove_first_node() {
     // Om listan är tom, ge exception
     if (this->head == NULL) {
         throw std::out_of_range("list is empty");
     }
 
-    int data = this->head->data;
+    char data = this->head->data;
 
     // Flytta listans head till nästa nod
     this->head = this->head->next;
@@ -213,7 +199,7 @@ int LinkedList::remove_first_node() {
 /** 
  * Remove the last node from the list
 */
-int LinkedList::remove_last_node() {
+char LinkedList::remove_last_node() {
     // Vi har inte dubbellänkad lista, så vi måste stega igenom till (näst sista)
 
     // 1. Om listan är tom, ge exception
@@ -225,7 +211,7 @@ int LinkedList::remove_last_node() {
     Node * current = this->head;
     Node * previous = this->head;
 
-    int data = this->tail->data;
+    char data = this->tail->data;
 
     // 3. Stega till "current" är sista noden (prevous blir den vi ska ha kvar)
     while (current != NULL) {
@@ -252,7 +238,7 @@ int LinkedList::remove_last_node() {
 /**
  * Remove the (first) node containing 'data' 
 */
-void LinkedList::remove_node(int data) {
+void LinkedList::remove_node(char data) {
 
     // 1. Om listan är tom, ge exception
     if (this->head == NULL) {
