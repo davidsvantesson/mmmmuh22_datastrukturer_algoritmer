@@ -27,19 +27,64 @@ public:
 class LinkedList
 {
 public:
-    Node *head;
+    Node *head, *tail;
 
     LinkedList()
     {
         head = NULL;
+        tail = NULL;
     }
 
     void printList();
+    void append(int);
+    int count();
+    int sum();
 
 };
 
+void LinkedList::append(int value)
+{
+    Node *nn = new Node(value);
 
+    if (this->head == NULL)
+    {
+        this->head = nn;
+        this->tail = nn;
+    }
+    else 
+    {
+        this->tail->next = nn;
+        this->tail = nn;
+    }
+}
 
+int LinkedList::count()
+{
+    Node *node = head;
+    int count = 0;
+
+    while(node!=NULL)
+    {
+        count++;
+        node = node->next;
+    }
+
+    return count;
+}
+
+int LinkedList::sum()
+{
+    Node *node = head;
+    int sum = 0;
+
+    while (node!=NULL)
+    {
+        sum+= node->data;
+        node = node->next;
+    }
+
+    return sum;    
+}
 void LinkedList::printList()
 {
     Node *temp = head;
@@ -64,16 +109,13 @@ int main()
     LinkedList llist;
     llist.printList();
 
-    Node box1(1);
-    llist.head = &box1;
+    llist.append(1);
     llist.printList();
 
-    Node box2(2);
-    box1.next = &box2;
+    llist.append(6);
     llist.printList();
 
-    Node box3(3);
-    box2.next = &box3;
+    llist.append(3);
     llist.printList();
 
     Node *currentNode = llist.head;
@@ -84,4 +126,7 @@ int main()
         // Gå vidare till nästa nod
         currentNode = currentNode->next;
     }
+    
+    cout << "Count sum: " << llist.count() << endl;
+    cout << "Data sum: " << llist.sum() << endl;
 }
